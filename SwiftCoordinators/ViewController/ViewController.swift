@@ -8,19 +8,26 @@
 
 import UIKit
 
+public protocol ViewControllerDelegate: class{
+        func buySubscription()
+        func createAccount()
+}
+
 class ViewController: UIViewController,Storyboarded {
-    weak var coordinator: MainCoordinator?
+    
+    weak var delegate: ViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
-
+    
     @IBAction func createAccountTapped(_ sender: Any) {
-        coordinator?.createAccount()
+        delegate?.createAccount()
     }
     @IBAction func buyTapped(_ sender: Any) {
-        coordinator?.BuySubscription()
+        delegate?.buySubscription()
     }
 }
+
 

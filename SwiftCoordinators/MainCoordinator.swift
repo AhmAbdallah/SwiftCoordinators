@@ -11,24 +11,46 @@ import UIKit
 
 
 class MainCoordinator: Coordinator {
-    var childcoordinators = [Coordinator]()
+    
     var navigationController: UINavigationController
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     func start() {
+       addViewController()
+    }
+    
+}
+
+// MARK: Add ViewController
+extension MainCoordinator{
+    
+    func addViewController() {
         let vc =  ViewController.instantiate()
-        vc.coordinator = self
+        vc.delegate = self
         navigationController.pushViewController(vc, animated: false)
     }
-    func BuySubscription() {
-        let vc = BuyViewController.instantiate()
-        vc.coordinator = self
-        navigationController.pushViewController(vc, animated: true)
+}
+
+// MARK:  ViewControllerDelegate
+extension MainCoordinator: ViewControllerDelegate{
+    func buySubscription() {
+        create()
     }
     func createAccount() {
+        buy()
+    }
+}
+
+// MARK:  Handle ViewController Flow Logic
+extension MainCoordinator {
+    func buy()
+    {
+        let vc = BuyViewController.instantiate()
+        navigationController.pushViewController(vc, animated: true)
+    }
+    func create() {
         let vc = CreatAccountViewController.instantiate()
-        vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
     }
 }
